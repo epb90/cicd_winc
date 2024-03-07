@@ -4,4 +4,4 @@ git pull origin main
 
 pip install -r requirements.txt
 
-systemctl status your_app_service
+systemctl status simple-app
