@@ -1,4 +1,4 @@
-name: Run Tests
+name: Run Tests and Deploy
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  test:
-    name: Test
+  test-and-deploy:
+    name: Test and Deploy
     runs-on: ubuntu-20.04
 
     steps:
@@ -29,3 +29,8 @@ jobs:
 
       - name: Run tests
         run: pytest
+
+      - name: Deploy to DigitalOcean
+        if: success() # Only deploy if the tests pass successfully
+        run: |
+          ssh username@167.71.59.87 'cd /home/simple-app/ && git pull origin main && pip install -r requirements.txt && systemctl restart simple-app'
